@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devboost.dronedelivery", "d
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation", "GeoLocation\GeoLocation.csproj", "{3AF216BE-B5E4-4B53-81D6-2E9FDA537B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devboost.Domain", "devboost.Domain\devboost.Domain.csproj", "{FA34DC34-BA4E-4EC8-8382-076106EED9A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devboost.Domain", "devboost.Domain\devboost.Domain.csproj", "{FA34DC34-BA4E-4EC8-8382-076106EED9A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devboost.Repository", "devboost.Repository\devboost.Repository.csproj", "{4D7031C5-B372-4260-89A2-250F28B06876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devboost.Repository", "devboost.Repository\devboost.Repository.csproj", "{4D7031C5-B372-4260-89A2-250F28B06876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devboost.Test", "devboost.Test\devboost.Test.csproj", "{FFEE7524-AD4F-4A5B-BDBF-D64C5EBC27FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4D7031C5-B372-4260-89A2-250F28B06876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7031C5-B372-4260-89A2-250F28B06876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7031C5-B372-4260-89A2-250F28B06876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFEE7524-AD4F-4A5B-BDBF-D64C5EBC27FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFEE7524-AD4F-4A5B-BDBF-D64C5EBC27FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFEE7524-AD4F-4A5B-BDBF-D64C5EBC27FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFEE7524-AD4F-4A5B-BDBF-D64C5EBC27FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
