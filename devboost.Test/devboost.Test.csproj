@@ -42,7 +42,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Handles\" />
   </ItemGroup>
 
 </Project>
