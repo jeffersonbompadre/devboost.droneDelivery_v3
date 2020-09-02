@@ -8,6 +8,7 @@ namespace devboost.Domain.Repository
     {
         Task<List<Drone>> GetAll();
         Task<List<Drone>> GetDronesDisponiveis();
+        Task AddDrone(Drone drone);
         Task UpdateDrone(Drone drone);
     }
 }

@@ -5,6 +5,7 @@ using devboost.Domain.Handles.Queries.Interfaces;
 using devboost.Domain.Repository;
 using devboost.Repository;
 using devboost.Repository.Context;
+using devboost.Test.Warmup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,8 @@ namespace devboost.Test.Config
 
             services.AddScoped<IPedidoHandler, PedidoHandler>();
             services.AddScoped<IDroneHandler, DroneHandler>();
+
+            services.AddScoped<IDataStart, DataStart>();
 
             return services.BuildServiceProvider();
         }

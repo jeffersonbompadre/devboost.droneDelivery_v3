@@ -34,6 +34,12 @@ namespace devboost.Repository
                 .ToListAsync();
         }
 
+        public async Task AddDrone(Drone drone)
+        {
+            _dataContext.Drone.Add(drone);
+            await _dataContext.SaveChangesAsync();
+        }
+
         public async Task UpdateDrone(Drone drone)
         {
             _dataContext.Drone.Update(drone);
