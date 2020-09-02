@@ -3,6 +3,7 @@ using devboost.Domain.Repository;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace devboost.Test.Repository
@@ -27,6 +28,11 @@ namespace devboost.Test.Repository
                 User = new User(usuario, senha, perfil)
             };
             Task.FromResult(_clienteRepository.AddCliente(cliente));
+        }
+
+        public async Task<List<Pedido>> GetPedidos()
+        {
+            List<Pedido> lista = await _pedidoRepository.GetPedidos()
         }
     }
 }
