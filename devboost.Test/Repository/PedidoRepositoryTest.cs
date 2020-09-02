@@ -1,38 +1,31 @@
 ﻿using devboost.Domain.Model;
 using devboost.Domain.Repository;
 using devboost.Test.Config;
+using devboost.Test.Warmup;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace devboost.Test.Repository
 {
     public class PedidoRepositoryTest
-    {
-        private static readonly Guid V = Guid.NewGuid();
-        readonly IPedidoRepository _pedidoRepository;
-        readonly IClienteRepository _clienteRepository;
+    {        
+        readonly IPedidoRepository _pedidoRepository;        
+        readonly IDataStart _dataStart;
 
         public PedidoRepositoryTest()
         {
-            _clienteRepository = StartInjection.GetServiceCollection().GetService<IClienteRepository>();
+            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
             _pedidoRepository = StartInjection.GetServiceCollection().GetService<IPedidoRepository>();
-            AdicionaCliente("Jefferson", "jefbpd@gmail.com", "(11)999-9999", -23.6578, -43.56079, "jefferson", "12345", "ADMIN");            
+            _dataStart.Seed();
         }
 
-        private void AdicionaCliente(string nome, string eMail, string telefone, double latitude, double longitude, string usuario, string senha, string perfil)
+        [Fact]
+        public async Task GetPedidos()
         {
-            var cliente = new Cliente(nome, eMail, telefone, latitude, longitude)
-            {
-                User = new User(usuario, senha, perfil)
-            };
-            Task.FromResult(_clienteRepository.AddCliente(cliente));
-        }
-
-        public async Task<List<Pedido>> GetPedidos()
-        {
-            List<Pedido> lista = await _pedidoRepository.GetPedidos()
+            List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoAprovacao);
+            Assert.NotNull(lista);
         }
     }
 }
