@@ -40,8 +40,4 @@
     <ProjectReference Include="..\devboost.Repository\devboost.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Entities\" />
-  </ItemGroup>
-
 </Project>
