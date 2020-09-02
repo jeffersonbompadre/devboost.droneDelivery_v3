@@ -2,9 +2,11 @@
 using devboost.Domain.Repository;
 using devboost.Test.Config;
 using devboost.Test.Warmup;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -75,17 +77,17 @@ namespace devboost.Test.Repository
             List<Pedido> pedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
             List<Drone> drones = await _droneRepository.GetDronesDisponiveis();
 
-            Drone d = drones[1];
-            Pedido p = pedidos[2];
+            Drone d = drones[0];
+            Pedido p = pedidos[0];
 
             await _pedidoRepository.AddPedidoDrone(new PedidoDrone
             {
-                Drone = d,
-                Pedido = p,
+                DroneId = d.Id,
+                PedidoId = p.Id
             });
 
             List<Pedido> ps = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
-            Assert.True(ps.Count > 0);
+            Assert.True(ps.Any(p => p.PedidosDrones.Count > 0));
         }
     }
 }
