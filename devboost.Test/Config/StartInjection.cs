@@ -24,6 +24,10 @@ namespace devboost.Test.Config
             services.AddDbContext<DataContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "Test"));
 
+            //services.AddDbContext<DataContext>(options =>
+            //    options.UseSqlServer(
+            //        configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<IDroneRepository, DroneRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
