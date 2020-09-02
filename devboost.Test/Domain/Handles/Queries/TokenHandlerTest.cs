@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Xunit;
 using devboost.Test.Warmup;
 
-namespace devboost.Test.Domain.Handles
+namespace devboost.Test.Domain.Handles.Queries
 {
     public class TokenHandlerTest
     {

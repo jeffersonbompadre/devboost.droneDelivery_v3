@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace devboost.Test.Domain.Handles
+namespace devboost.Test.Domain.Handles.Queries
 {
     public class ClienteQueryHandlerTest
     {
