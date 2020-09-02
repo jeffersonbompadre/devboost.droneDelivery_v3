@@ -12,13 +12,15 @@ namespace devboost.Test.Repository
 {
     public class PedidoRepositoryTest
     {        
-        readonly IPedidoRepository _pedidoRepository;        
+        readonly IPedidoRepository _pedidoRepository;
+        readonly IDroneRepository _droneRepository;
         readonly IDataStart _dataStart;
 
         public PedidoRepositoryTest()
         {
             _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
             _pedidoRepository = StartInjection.GetServiceCollection().GetService<IPedidoRepository>();
+            _droneRepository = StartInjection.GetServiceCollection().GetService<IDroneRepository>();
             _dataStart.Seed();
         }
 
@@ -40,7 +42,8 @@ namespace devboost.Test.Repository
         public async Task AddPedido()
         {
             await _pedidoRepository.AddPedido(new Pedido 
-            { Id = Guid.NewGuid(),
+            { 
+                Id = Guid.NewGuid(),
                 Peso = 4,
                 DataHora = DateTime.Now,
                 DistanciaParaOrigem = 2,
@@ -49,6 +52,40 @@ namespace devboost.Test.Repository
 
             List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.despachado);
             Assert.True(lista.Count > 0);
+        }
+
+        [Fact]
+        public async Task UpdatePedido()
+        {
+            List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            Pedido p = lista[0];
+            p.Peso = 5;
+            p.DistanciaParaOrigem = 3;
+
+            await _pedidoRepository.UpdatePedido(p);
+
+            List<Pedido> pedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            Assert.True(pedidos[0].Peso == 5);
+            Assert.True(pedidos[0].DistanciaParaOrigem == 3);
+        }
+
+        [Fact]
+        public async Task AddPedidoDrone()
+        {
+            List<Pedido> pedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            List<Drone> drones = await _droneRepository.GetDronesDisponiveis();
+
+            Drone d = drones[1];
+            Pedido p = pedidos[2];
+
+            await _pedidoRepository.AddPedidoDrone(new PedidoDrone
+            {
+                Drone = d,
+                Pedido = p,
+            });
+
+            List<Pedido> ps = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            Assert.True(ps.Count > 0);
         }
     }
 }
