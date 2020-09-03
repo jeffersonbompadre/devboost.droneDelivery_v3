@@ -17,7 +17,7 @@ namespace devboost.Test.Domain.Handles
             _pedidoHandler = StartInjection.GetServiceCollection().GetService<IPedidoHandler>();
             _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
             // Popula base de dados
-            _dataStart.Seed();
+            _dataStart.Seed().Wait();
         }
 
         [Theory]
