@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using devboost.Domain.Commands.Request;
+﻿using devboost.Domain.Commands.Request;
 using devboost.Domain.Handles.Commands.Interfaces;
-using devboost.Domain.Handles.Queries;
 using devboost.Domain.Handles.Queries.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace devboost.dronedelivery.Controllers
 {
