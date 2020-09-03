@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace devboost.SpecFlowTest.Features
+namespace devboost.SpecFlowTest.Features.Handlers
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,7 +19,7 @@ namespace devboost.SpecFlowTest.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Realizar Login para Autenticar no sistema", SourceFile="Features\\Authentication.feature", SourceLine=0)]
+    [TechTalk.SpecRun.FeatureAttribute("Realizar Login para Autenticar no sistema", SourceFile="Features\\Handlers\\Authentication.feature", SourceLine=0)]
     public partial class RealizarLoginParaAutenticarNoSistemaFeature
     {
         
@@ -34,7 +34,7 @@ namespace devboost.SpecFlowTest.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Realizar Login para Autenticar no sistema", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/Handlers", "Realizar Login para Autenticar no sistema", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
