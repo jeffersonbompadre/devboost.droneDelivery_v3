@@ -58,48 +58,60 @@ namespace devboost.Test.Warmup
             _clienteRepository = clienteRepository;
         }
 
-        public async Task Seed()
+        public void Seed()
         {
-            await AddDrone();
-            await AddUser();
-            await AddCliente();
-            await AddPedido();
+            AddDrone();
+            AddUser();
+            AddCliente();
+            AddPedido();
         }
 
-        async Task AddDrone()
+        void AddDrone()
         {
             foreach (var drone in droneData)
             {
-                await _droneRepository.AddDrone(drone);
+                var d = _droneRepository.GetById(drone.Id).Result;
+                if (d == null)
+                    _droneRepository.AddDrone(drone).Wait();
             }
         }
 
-        async Task AddUser()
+        void AddUser()
         {
             foreach (var user in userData)
             {
-                await _userRepository.AddUser(user);
+                var u = _userRepository.GetUser(user.UserName).Result;
+                if (u == null)
+                    _userRepository.AddUser(user).Wait();
             }
         }
 
-        async Task AddCliente()
+        void AddCliente()
         {
             var i = 0;
             var users = new string[] { "Afonso", "Allan", "Eric", "Jefferson" };
             foreach (var cliente in clienteData)
             {
-                var user = await _userRepository.GetUser(users[i++]);
-                cliente.User = user;
-                await _clienteRepository.AddCliente(cliente);
+                var user = _userRepository.GetUser(users[i++]).Result;
+                var c = _clienteRepository.GetByUserName(user.UserName).Result;
+                if (c == null)
+                {
+                    cliente.User = user;
+                    _clienteRepository.AddCliente(cliente).Wait();
+                }
             }
         }
 
-        async Task AddPedido()
+        void AddPedido()
         {
             foreach (var pedido in pedidoData)
             {
-                pedido.Cliente = clienteData[new Random().Next(0, 3)];
-                await _pedidoRepository.AddPedido(pedido);
+                var p = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
+                if (p.Count <= 5)
+                {
+                    pedido.Cliente = clienteData[new Random().Next(0, 3)];
+                    _pedidoRepository.AddPedido(pedido).Wait();
+                }
             }
         }
     }

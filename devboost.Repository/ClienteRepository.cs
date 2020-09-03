@@ -35,12 +35,12 @@ namespace devboost.Repository
 
         public async Task<Cliente> Get(string nome)
         {
-            return await _dataContext.Cliente.FirstOrDefaultAsync(x => x.Nome == nome);
+            return await _dataContext.Cliente.FirstOrDefaultAsync(x => x.Nome.ToLower() == nome.ToLower());
         }
 
         public async Task<Cliente> GetByUserName(string userName)
         {
-            return await _dataContext.Cliente.FirstOrDefaultAsync(x => x.User.UserName == userName);
+            return await _dataContext.Cliente.FirstOrDefaultAsync(x => x.User.UserName.ToLower() == userName.ToLower());
         }
     }
 }

@@ -45,7 +45,13 @@ namespace devboost.Test.Config
 
             services.AddScoped<IDataStart, DataStart>();
 
-            return services.BuildServiceProvider();
+            var builderServices = services.BuildServiceProvider();
+
+            // Inicia base de dados em memória
+            var dataStart = builderServices.GetService<IDataStart>();
+            dataStart.Seed();
+
+            return builderServices;
         }
     }
 }

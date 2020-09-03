@@ -23,7 +23,7 @@ namespace devboost.Repository
 
         public async Task<User> GetUser(string userName)
         {
-            return await _dataContext.User.FirstOrDefaultAsync(x => x.UserName == userName);
+            return await _dataContext.User.FirstOrDefaultAsync(x => x.UserName.ToLower() == userName.ToLower());
         }
     }
 }

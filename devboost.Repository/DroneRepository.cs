@@ -17,6 +17,13 @@ namespace devboost.Repository
             _dataContext = dataContext;
         }
 
+        public async Task<Drone> GetById(int id)
+        {
+            var drone = await _dataContext.Drone
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return drone;
+        }
+
         public async Task<List<Drone>> GetAll()
         {
             var drones = await _dataContext.Drone

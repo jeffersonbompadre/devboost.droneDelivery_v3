@@ -2,27 +2,18 @@
 using devboost.Domain.Model;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using devboost.Test.Warmup;
 
 namespace devboost.Test.Domain.Handles.Queries
 {
     public class TokenHandlerTest
     {
         private ITokenHandler _tokenHandler;
-        private IDataStart _dataStart;
 
         public TokenHandlerTest()
         {
             _tokenHandler = StartInjection.GetServiceCollection().GetService<ITokenHandler>();
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
-            // Popula base de dados
-            _dataStart.Seed();
         }
 
         [Theory]

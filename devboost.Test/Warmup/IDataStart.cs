@@ -4,6 +4,6 @@ namespace devboost.Test.Warmup
 {
     public interface IDataStart
     {
-        Task Seed();
+        void Seed();
     }
 }

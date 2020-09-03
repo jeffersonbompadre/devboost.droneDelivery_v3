@@ -1,7 +1,6 @@
 ﻿using devboost.Domain.Model;
 using devboost.Domain.Repository;
 using devboost.Test.Config;
-using devboost.Test.Warmup;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,17 +12,14 @@ using Xunit;
 namespace devboost.Test.Repository
 {
     public class PedidoRepositoryTest
-    {        
+    {
         readonly IPedidoRepository _pedidoRepository;
         readonly IDroneRepository _droneRepository;
-        readonly IDataStart _dataStart;
 
         public PedidoRepositoryTest()
         {
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
             _pedidoRepository = StartInjection.GetServiceCollection().GetService<IPedidoRepository>();
             _droneRepository = StartInjection.GetServiceCollection().GetService<IDroneRepository>();
-            _dataStart.Seed();
         }
 
         [Fact]
@@ -43,8 +39,8 @@ namespace devboost.Test.Repository
         [Fact]
         public async Task AddPedido()
         {
-            await _pedidoRepository.AddPedido(new Pedido 
-            { 
+            await _pedidoRepository.AddPedido(new Pedido
+            {
                 Id = Guid.NewGuid(),
                 Peso = 4,
                 DataHora = DateTime.Now,

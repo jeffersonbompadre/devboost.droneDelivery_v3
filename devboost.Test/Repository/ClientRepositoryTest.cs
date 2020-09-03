@@ -1,7 +1,6 @@
 ﻿using devboost.Domain.Model;
 using devboost.Domain.Repository;
 using devboost.Test.Config;
-using devboost.Test.Warmup;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,14 +10,10 @@ namespace devboost.Test.Repository
     public class ClientRepositoryTest
     {
         readonly IClienteRepository _clienteRepository;
-        readonly IDataStart _dataStart;
 
         public ClientRepositoryTest()
         {
             _clienteRepository = StartInjection.GetServiceCollection().GetService<IClienteRepository>();
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
-            // Popula base de dados
-            _dataStart.Seed();
         }
 
         [Theory]
