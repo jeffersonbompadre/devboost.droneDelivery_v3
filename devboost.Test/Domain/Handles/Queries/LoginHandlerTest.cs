@@ -21,7 +21,7 @@ namespace devboost.Test.Domain.Handles.Queries
         }
 
         [Theory]
-        [InlineData("Erick", "12345")]
+        [InlineData("Eric", "12345")]
         public async void TestaLoginUser(string userName, string password)
         {
             var login = await _loginHandler.LoginUser(new QueryUserFilter { UserName = userName, Password = password });

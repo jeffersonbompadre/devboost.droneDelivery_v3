@@ -36,7 +36,7 @@ namespace devboost.SpecFlowTest.Steps
         [When(@"Quando for informado o login")]
         public async Task WhenQuandoForInformadoOLogin()
         {
-            var login = await _loginHandler.LoginUser(new QueryUserFilter { UserName = "Erick", Password = "12345" });
+            var login = await _loginHandler.LoginUser(new QueryUserFilter { UserName = "Eric", Password = "12345" });
             _context.Set(login);
         }
         

@@ -29,7 +29,7 @@ namespace devboost.Test.Warmup
         {
             new User("Afonso", "12345", "admin"),
             new User("Allan", "12345", "admin"),
-            new User("Erick", "12345", "admin"),
+            new User("Eric", "12345", "admin"),
             new User("Jefferson", "12345", "admin")
         };
 
@@ -84,9 +84,12 @@ namespace devboost.Test.Warmup
 
         async Task AddCliente()
         {
+            var i = 0;
+            var users = new string[] { "Afonso", "Allan", "Eric", "Jefferson" };
             foreach (var cliente in clienteData)
             {
-                cliente.User = userData[new Random().Next(0, 3)];
+                var user = await _userRepository.GetUser(users[i++]);
+                cliente.User = user;
                 await _clienteRepository.AddCliente(cliente);
             }
         }

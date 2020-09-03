@@ -5,7 +5,6 @@ using devboost.Test.Warmup;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-
 namespace devboost.Test.Domain.Handles
 {
     public class PedidoHandlerTest
@@ -22,7 +21,7 @@ namespace devboost.Test.Domain.Handles
         }
 
         [Theory]
-        [InlineData(5, "Erick")]
+        [InlineData(5, "Eric")]
         public async void TestaRealizarPedido(int peso, string usuario)
         {
             var pedido = await _pedidoHandler.RealizarPedido(new RealizarPedidoRequest { Peso = peso }, usuario );

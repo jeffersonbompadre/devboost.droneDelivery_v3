@@ -121,7 +121,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void CadastrarClientesComDadosValidos_Joao()
         {
 #line 3
-this.CadastrarClientesComDadosValidos("Joao", "joao@joao.com.br", "1231313123", "-23.458", "-43.567", "Erick", "12345", "admin", ((string[])(null)));
+this.CadastrarClientesComDadosValidos("Joao", "joao@joao.com.br", "1231313123", "-23.458", "-43.567", "Eric", "12345", "admin", ((string[])(null)));
 #line hidden
         }
     }
