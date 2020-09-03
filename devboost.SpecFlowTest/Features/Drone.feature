@@ -6,4 +6,4 @@ Scenario Outline: Cadastrar Drones com dados válidos
 	Then Será retornado um drone
 	Examples: 
 	| Id | Capacidade | Velocidade | Autonomia | Carga | StatusDrone |
-	| 21 | 12         | 35         | 15        | 100   | StatusDrone.disponvivel  |
+	| 21 | 12         | 35         | 15        | 100   | 1  |
