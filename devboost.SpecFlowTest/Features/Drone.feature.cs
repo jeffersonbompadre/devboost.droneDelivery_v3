@@ -119,7 +119,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void CadastrarDronesComDadosValidos_21()
         {
 #line 3
-this.CadastrarDronesComDadosValidos("21", "12", "35", "15", "100", "StatusDrone.disponvivel", ((string[])(null)));
+this.CadastrarDronesComDadosValidos("21", "12", "35", "15", "100", "1", ((string[])(null)));
 #line hidden
         }
     }
