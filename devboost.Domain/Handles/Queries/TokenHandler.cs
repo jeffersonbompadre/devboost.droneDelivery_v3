@@ -16,7 +16,7 @@ namespace devboost.Domain.Handles.Queries
 
         public TokenHandler(IConfiguration configuration)
         {
-            _jwtKey = configuration["jwt:key"];
+            _jwtKey = "#tUKIkgfFbk¨#(*¨&&*OIUOIljkkjghkTYUXP*&#WAPORTEVJHG@+$#^ÇKhkljhkljdcyjgh*(&nbkluhjvjv3Vcvdi"; //configuration["jwt:key"];
         }
 
         public async Task<string> GenerateToken(User user)
