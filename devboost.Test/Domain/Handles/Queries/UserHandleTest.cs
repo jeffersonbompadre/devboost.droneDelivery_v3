@@ -14,7 +14,8 @@ namespace devboost.Test.Domain.Handles.Queries
 
         public UserHandleTest()
         {
-            _userHandler = StartInjection.GetServiceCollection().GetService<IUserHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _userHandler = _serviceProvider.GetService<IUserHandler>();
         }
 
         [Fact]

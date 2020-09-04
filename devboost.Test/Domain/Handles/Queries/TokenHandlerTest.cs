@@ -13,7 +13,8 @@ namespace devboost.Test.Domain.Handles.Queries
 
         public TokenHandlerTest()
         {
-            _tokenHandler = StartInjection.GetServiceCollection().GetService<ITokenHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _tokenHandler = _serviceProvider.GetService<ITokenHandler>();
         }
 
         [Theory]
@@ -21,7 +22,6 @@ namespace devboost.Test.Domain.Handles.Queries
         public async Task TestaConsultaClientePorNomeUsuario(string userName, string password, string role)
         {
             var user = new User(userName, password, role);
-
             var userResult = await _tokenHandler.GenerateToken(user);
             Assert.NotNull(userResult);
         }

@@ -13,45 +13,58 @@ using System;
 
 namespace devboost.Test.Config
 {
-    public static class StartInjection
+    public class StartInjection
     {
-        public static IServiceProvider GetServiceCollection()
+        IServiceCollection _services;
+        IServiceProvider _serviceProvider;
+
+        public StartInjection()
         {
-            IServiceCollection services = new ServiceCollection();
+            BuildServiceProvider();
+        }
+
+        public IServiceProvider ServiceProvider => _serviceProvider;
+
+        void BuildServiceProvider()
+        {
+            IServiceCollection _services = new ServiceCollection();
 
             IConfiguration configuration = StartConfiguration.Configuration;
-            services.AddSingleton(x => configuration);
+            _services.AddSingleton(x => configuration);
 
-            services.AddDbContext<DataContext>(options =>
+            //var builder = new DbContextOptionsBuilder<DataContext>()
+            //    .UseInMemoryDatabase(databaseName: "Test");
+            //_services.AddScoped<DataContext>(x => new DataContext(builder.Options));
+
+            _services.AddDbContext<DataContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "Test"));
 
             //services.AddDbContext<DataContext>(options =>
             //    options.UseSqlServer(
             //        configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IPedidoRepository, PedidoRepository>();
-            services.AddScoped<IDroneRepository, DroneRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IClienteRepository, ClienteRepository>();
+            _services.AddScoped<IPedidoRepository, PedidoRepository>();
+            _services.AddScoped<IDroneRepository, DroneRepository>();
+            _services.AddScoped<IUserRepository, UserRepository>();
+            _services.AddScoped<IClienteRepository, ClienteRepository>();
 
-            services.AddScoped<ITokenHandler, TokenHandler>();
-            services.AddScoped<ILoginHandler, LoginHandler>();
-            services.AddScoped<IUserHandler, UserHandler>();
-            services.AddScoped<IClienteHandler, ClienteHandler>();
-            services.AddScoped<IClientQueryHandler, ClienteQueryHandler>();
+            _services.AddScoped<ITokenHandler, TokenHandler>();
+            _services.AddScoped<ILoginHandler, LoginHandler>();
+            _services.AddScoped<IUserHandler, UserHandler>();
+            _services.AddScoped<IClienteHandler, ClienteHandler>();
+            _services.AddScoped<IClientQueryHandler, ClienteQueryHandler>();
 
-            services.AddScoped<IPedidoHandler, PedidoHandler>();
-            services.AddScoped<IDroneHandler, DroneHandler>();
+            _services.AddScoped<IPedidoHandler, PedidoHandler>();
+            _services.AddScoped<IDroneHandler, DroneHandler>();
 
-            services.AddScoped<IDataStart, DataStart>();
+            _services.AddScoped<IDataStart, DataStart>();
 
-            var builderServices = services.BuildServiceProvider();
+            // Constroe o Provider
+            _serviceProvider = _services.BuildServiceProvider();
 
             // Inicia base de dados em memória
-            var dataStart = builderServices.GetService<IDataStart>();
+            var dataStart = _serviceProvider.GetService<IDataStart>();
             dataStart.Seed();
-
-            return builderServices;
         }
     }
 }

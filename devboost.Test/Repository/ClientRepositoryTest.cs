@@ -13,7 +13,8 @@ namespace devboost.Test.Repository
 
         public ClientRepositoryTest()
         {
-            _clienteRepository = StartInjection.GetServiceCollection().GetService<IClienteRepository>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _clienteRepository = _serviceProvider.GetService<IClienteRepository>();
         }
 
         [Theory]

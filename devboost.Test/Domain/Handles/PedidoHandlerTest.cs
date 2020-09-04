@@ -12,7 +12,8 @@ namespace devboost.Test.Domain.Handles
 
         public PedidoHandlerTest()
         {
-            _pedidoHandler = StartInjection.GetServiceCollection().GetService<IPedidoHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _pedidoHandler = _serviceProvider.GetService<IPedidoHandler>();
         }
 
         [Theory]

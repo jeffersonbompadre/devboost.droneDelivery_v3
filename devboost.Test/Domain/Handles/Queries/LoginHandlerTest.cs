@@ -12,7 +12,8 @@ namespace devboost.Test.Domain.Handles.Queries
 
         public LoginHandlerTest()
         {
-            _loginHandler = StartInjection.GetServiceCollection().GetService<ILoginHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _loginHandler = _serviceProvider.GetService<ILoginHandler>();
         }
 
         [Theory]

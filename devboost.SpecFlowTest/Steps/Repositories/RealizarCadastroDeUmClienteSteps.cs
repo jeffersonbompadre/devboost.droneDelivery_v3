@@ -1,11 +1,10 @@
-﻿using devboost.Domain.Repository;
+﻿using devboost.Domain.Model;
+using devboost.Domain.Repository;
 using devboost.Test.Config;
 using devboost.Test.Warmup;
-using System;
-using TechTalk.SpecFlow;
 using Microsoft.Extensions.DependencyInjection;
-using devboost.Domain.Model;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow;
 using Xunit;
 
 namespace devboost.SpecFlowTest.Steps
@@ -19,11 +18,10 @@ namespace devboost.SpecFlowTest.Steps
 
         public RealizarCadastroDeUmClienteSteps(ScenarioContext context)
         {
-            _clienteRepository = StartInjection.GetServiceCollection().GetService<IClienteRepository>();
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _clienteRepository = _serviceProvider.GetService<IClienteRepository>();
+            _dataStart = _serviceProvider.GetService<IDataStart>();
             _context = context;
-            // Popula base de dados
-            
         }
 
         [Given(@"Que não existão clientes cadastrados")]
@@ -31,7 +29,7 @@ namespace devboost.SpecFlowTest.Steps
         {
             _dataStart.Seed();
         }
-        
+
         [When(@"Quando eu cadastrar o cliente Nome:'(.*)' Email: '(.*)' Telefone:'(.*)' Latitude:'(.*)' Longitude:'(.*)' Usuario:'(.*)' Senha:'(.*)' Perfil:'(.*)'")]
         public async Task WhenQuandoEuCadastrarOClienteNomeEmailTelefoneLatitudeLongitudeUsuario(string p0, string p1, string p2, double p3, double p4, string p5,
             string p6, string p7)
@@ -44,8 +42,8 @@ namespace devboost.SpecFlowTest.Steps
 
             _context.Set(cliente);
         }
-        
-        
+
+
         [Then(@"Será retornado um cliente")]
         public void ThenSeraRetornadoUmCliente()
         {

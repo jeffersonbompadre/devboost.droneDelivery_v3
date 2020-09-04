@@ -1,13 +1,12 @@
 ﻿using devboost.Domain.Handles.Queries.Interfaces;
+using devboost.Domain.Queries.Filters;
+using devboost.Domain.Queries.Result;
 using devboost.Test.Config;
 using devboost.Test.Warmup;
-using System;
-using TechTalk.SpecFlow;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using devboost.Domain.Queries.Filters;
+using TechTalk.SpecFlow;
 using Xunit;
-using devboost.Domain.Queries.Result;
 
 namespace devboost.SpecFlowTest.Steps
 {
@@ -20,8 +19,9 @@ namespace devboost.SpecFlowTest.Steps
 
         public RealizarLoginParaAutenticarNoSistemaSteps(ScenarioContext context)
         {
-            _loginHandler = StartInjection.GetServiceCollection().GetService<ILoginHandler>();
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _loginHandler = _serviceProvider.GetService<ILoginHandler>();
+            _dataStart = _serviceProvider.GetService<IDataStart>();
             // Popula base de dados
             //_dataStart.Seed();
             _context = context;
@@ -32,14 +32,14 @@ namespace devboost.SpecFlowTest.Steps
         {
             _dataStart.Seed();
         }
-        
+
         [When(@"Quando for informado o login")]
         public async Task WhenQuandoForInformadoOLogin()
         {
             var login = await _loginHandler.LoginUser(new QueryUserFilter { UserName = "Eric", Password = "12345" });
             _context.Set(login);
         }
-        
+
         [Then(@"Será retornado um token")]
         public void ThenSeraRetornadoUmToken()
         {

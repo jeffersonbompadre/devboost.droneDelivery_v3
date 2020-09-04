@@ -12,7 +12,8 @@ namespace devboost.Test.Domain.Handles
 
         public ClienteHandlerTest()
         {
-            _clientHandler = StartInjection.GetServiceCollection().GetService<IClienteHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _clientHandler = _serviceProvider.GetService<IClienteHandler>();
         }
 
         [Theory]

@@ -1,11 +1,10 @@
-﻿using devboost.Domain.Repository;
+﻿using devboost.Domain.Model;
+using devboost.Domain.Repository;
 using devboost.Test.Config;
 using devboost.Test.Warmup;
-using System;
-using TechTalk.SpecFlow;
 using Microsoft.Extensions.DependencyInjection;
-using devboost.Domain.Model;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow;
 using Xunit;
 
 namespace devboost.SpecFlowTest.Steps
@@ -19,11 +18,11 @@ namespace devboost.SpecFlowTest.Steps
 
         public RealizarCadastroDroneSteps(ScenarioContext context)
         {
-            _droneRepository = StartInjection.GetServiceCollection().GetService<IDroneRepository>();
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _droneRepository = _serviceProvider.GetService<IDroneRepository>();
+            _dataStart = _serviceProvider.GetService<IDataStart>();
             // Popula base de dados
             _context = context;
-            
         }
 
         [Given(@"Que não existão drones cadastrados")]
@@ -31,7 +30,7 @@ namespace devboost.SpecFlowTest.Steps
         {
             _dataStart.Seed();
         }
-        
+
         [When(@"Quando eu cadastrar o drone Id:'(.*)' Capacidade: '(.*)' Velocidade:'(.*)' Autonomia:'(.*)' Carga:'(.*)' StatusDrone:'(.*)'")]
         public async Task WhenQuandoEuCadastrarODroneIdCapacidadeVelocidadeAutonomiaCargaStatusDrone(int p0, int p1, int p2, int p3, int p4, int p5)
         {
@@ -48,7 +47,7 @@ namespace devboost.SpecFlowTest.Steps
             await _droneRepository.AddDrone(drone);
             _context.Set(drone);
         }
-        
+
         [Then(@"Será retornado um drone")]
         public void ThenSeraRetornadoUmDrone()
         {

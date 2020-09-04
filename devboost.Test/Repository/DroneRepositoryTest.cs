@@ -13,7 +13,8 @@ namespace devboost.Test.Repository
 
         public DroneRepositoryTest()
         {
-            _droneRepository = StartInjection.GetServiceCollection().GetService<IDroneRepository>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _droneRepository = _serviceProvider.GetService<IDroneRepository>();
         }
 
         [Theory]

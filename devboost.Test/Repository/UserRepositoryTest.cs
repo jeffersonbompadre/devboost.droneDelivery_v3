@@ -12,7 +12,8 @@ namespace devboost.Test.Repository
 
         public UserRepositoryTest()
         {
-            _userRepository = StartInjection.GetServiceCollection().GetService<IUserRepository>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _userRepository = _serviceProvider.GetService<IUserRepository>();
         }
 
         [Fact]

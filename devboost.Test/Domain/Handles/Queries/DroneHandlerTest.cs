@@ -14,7 +14,8 @@ namespace devboost.Test.Domain.Handles.Queries
 
         public DroneHandlerTest()
         {
-            _droneHandler = StartInjection.GetServiceCollection().GetService<IDroneHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _droneHandler = _serviceProvider.GetService<IDroneHandler>();
         }
 
         [Fact]

@@ -18,8 +18,9 @@ namespace devboost.Test.Repository
 
         public PedidoRepositoryTest()
         {
-            _pedidoRepository = StartInjection.GetServiceCollection().GetService<IPedidoRepository>();
-            _droneRepository = StartInjection.GetServiceCollection().GetService<IDroneRepository>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _pedidoRepository = _serviceProvider.GetService<IPedidoRepository>();
+            _droneRepository = _serviceProvider.GetService<IDroneRepository>();
         }
 
         [Fact]

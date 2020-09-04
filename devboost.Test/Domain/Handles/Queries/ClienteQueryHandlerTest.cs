@@ -12,7 +12,8 @@ namespace devboost.Test.Domain.Handles.Queries
 
         public ClienteQueryHandlerTest()
         {
-            _clientQueryHandler = StartInjection.GetServiceCollection().GetService<IClientQueryHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _clientQueryHandler = _serviceProvider.GetService<IClientQueryHandler>();
         }
 
         [Fact]
