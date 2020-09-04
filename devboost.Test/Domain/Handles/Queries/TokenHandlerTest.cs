@@ -19,20 +19,19 @@ namespace devboost.Test.Domain.Handles.Queries
 
         [Theory]
         [InlineData("Eric Joseph", "12345", "admin")]
-        public async Task TestaConsultaClientePorNomeUsuario(string userName, string password, string role)
+        public void TestaConsultaClientePorNomeUsuario(string userName, string password, string role)
         {
             var user = new User(userName, password, role);
-            var userResult = await _tokenHandler.GenerateToken(user);
+            var userResult = _tokenHandler.GenerateToken(user).Result;
             Assert.NotNull(userResult);
         }
 
         [Theory]
         [InlineData("Eric Joseph", "12345", "")]
-        public async Task TestaConsultaClientePorNomeUsuarioErro(string userName, string password, string role)
+        public void TestaConsultaClientePorNomeUsuarioErro(string userName, string password, string role)
         {
             var user = new User(userName, password, role);
-
-            var userResult = await _tokenHandler.GenerateToken(user);
+            var userResult = _tokenHandler.GenerateToken(user).Result;
             Assert.Empty(userResult);
         }
     }

@@ -1,7 +1,6 @@
 ﻿using devboost.Domain.Handles.Queries.Interfaces;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Domain.Handles.Queries
@@ -17,9 +16,9 @@ namespace devboost.Test.Domain.Handles.Queries
         }
 
         [Fact]
-        public async Task TestaRetornoTodosCliente()
+        public void TestaRetornoTodosCliente()
         {
-            var cliResult = await _clientQueryHandler.GetAll();
+            var cliResult = _clientQueryHandler.GetAll().Result;
             Assert.NotNull(cliResult);
         }
     }

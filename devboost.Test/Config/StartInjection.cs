@@ -15,33 +15,26 @@ namespace devboost.Test.Config
 {
     public class StartInjection
     {
-        IServiceCollection _services;
-        IServiceProvider _serviceProvider;
-
         public StartInjection()
         {
             BuildServiceProvider();
         }
 
-        public IServiceProvider ServiceProvider => _serviceProvider;
+        public IServiceProvider ServiceProvider { get; private set; }
 
         void BuildServiceProvider()
         {
-            IServiceCollection _services = new ServiceCollection();
+            var _services = new ServiceCollection();
 
             IConfiguration configuration = StartConfiguration.Configuration;
             _services.AddSingleton(x => configuration);
 
             //var builder = new DbContextOptionsBuilder<DataContext>()
             //    .UseInMemoryDatabase(databaseName: "Test");
-            //_services.AddScoped<DataContext>(x => new DataContext(builder.Options));
+            //_services.AddSingleton(x => new DataContext(builder.Options));
 
             _services.AddDbContext<DataContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "Test"));
-
-            //services.AddDbContext<DataContext>(options =>
-            //    options.UseSqlServer(
-            //        configuration.GetConnectionString("DefaultConnection")));
 
             _services.AddScoped<IPedidoRepository, PedidoRepository>();
             _services.AddScoped<IDroneRepository, DroneRepository>();
@@ -60,10 +53,10 @@ namespace devboost.Test.Config
             _services.AddScoped<IDataStart, DataStart>();
 
             // Constroe o Provider
-            _serviceProvider = _services.BuildServiceProvider();
+            ServiceProvider = _services.BuildServiceProvider();
 
             // Inicia base de dados em memória
-            var dataStart = _serviceProvider.GetService<IDataStart>();
+            var dataStart = ServiceProvider.GetService<IDataStart>();
             dataStart.Seed();
         }
     }

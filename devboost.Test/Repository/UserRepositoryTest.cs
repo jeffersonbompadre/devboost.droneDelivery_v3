@@ -1,7 +1,6 @@
 ﻿using devboost.Domain.Repository;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Repository
@@ -17,9 +16,9 @@ namespace devboost.Test.Repository
         }
 
         [Fact]
-        public async Task TestaConsultaClientePorNomeUsuario()
+        public void TestaConsultaClientePorNomeUsuario()
         {
-            var userResult = await _userRepository.GetUser("jefferson");
+            var userResult = _userRepository.GetUser("jefferson").Result;
             Assert.NotNull(userResult);
         }
     }

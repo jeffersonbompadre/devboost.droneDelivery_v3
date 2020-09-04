@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Repository
@@ -24,66 +23,65 @@ namespace devboost.Test.Repository
         }
 
         [Fact]
-        public async Task GetPedidos()
+        public void GetPedidos()
         {
-            List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            List<Pedido> lista = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
             Assert.True(lista.Count > 0);
         }
 
         [Fact]
-        public async Task GetPedidosPorStatusPesoDistancia()
+        public void GetPedidosPorStatusPesoDistancia()
         {
-            List<Pedido> listaPedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega, 2, 2);
+            List<Pedido> listaPedidos = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega, 2, 2).Result;
             Assert.True(listaPedidos.Count > 0);
         }
 
         [Fact]
-        public async Task AddPedido()
+        public void AddPedido()
         {
-            await _pedidoRepository.AddPedido(new Pedido
+            _pedidoRepository.AddPedido(new Pedido
             {
                 Id = Guid.NewGuid(),
                 Peso = 4,
                 DataHora = DateTime.Now,
                 DistanciaParaOrigem = 2,
                 StatusPedido = StatusPedido.despachado
-            });
-
-            List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.despachado);
+            }).Wait();
+            List<Pedido> lista = _pedidoRepository.GetPedidos(StatusPedido.despachado).Result;
             Assert.True(lista.Count > 0);
         }
 
         [Fact]
-        public async Task UpdatePedido()
+        public void UpdatePedido()
         {
-            List<Pedido> lista = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            List<Pedido> lista = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
             Pedido p = lista[0];
             p.Peso = 5;
             p.DistanciaParaOrigem = 3;
 
-            await _pedidoRepository.UpdatePedido(p);
+            _pedidoRepository.UpdatePedido(p).Wait();
 
-            List<Pedido> pedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            List<Pedido> pedidos = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
             Assert.True(pedidos[0].Peso == 5);
             Assert.True(pedidos[0].DistanciaParaOrigem == 3);
         }
 
         [Fact]
-        public async Task AddPedidoDrone()
+        public void AddPedidoDrone()
         {
-            List<Pedido> pedidos = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
-            List<Drone> drones = await _droneRepository.GetDronesDisponiveis();
+            List<Pedido> pedidos = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
+            List<Drone> drones = _droneRepository.GetDronesDisponiveis().Result;
 
             Drone d = drones[0];
             Pedido p = pedidos[0];
 
-            await _pedidoRepository.AddPedidoDrone(new PedidoDrone
+            _pedidoRepository.AddPedidoDrone(new PedidoDrone
             {
                 DroneId = d.Id,
                 PedidoId = p.Id
-            });
+            }).Wait();
 
-            List<Pedido> ps = await _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega);
+            List<Pedido> ps = _pedidoRepository.GetPedidos(StatusPedido.aguardandoEntrega).Result;
             Assert.True(ps.Any(p => p.PedidosDrones.Count > 0));
         }
     }
