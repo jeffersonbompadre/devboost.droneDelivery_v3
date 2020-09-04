@@ -1,6 +1,7 @@
 ﻿using devboost.Domain.Entities;
 using System;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace devboost.SpecFlowTest.Steps.Entities
 {
@@ -24,7 +25,7 @@ namespace devboost.SpecFlowTest.Steps.Entities
         [Then(@"O Calculo de KM será realizado")]
         public void ThenOCalculoDeKMSeraRealizado()
         {
-            ScenarioContext.Current.Pending();
+            Assert.True(_context.Get<double>() > 0);
         }
     }
 }

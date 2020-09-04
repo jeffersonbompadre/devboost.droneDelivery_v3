@@ -19,8 +19,9 @@ namespace devboost.SpecFlowTest.Steps.Handlers.Query
 
         public ConsultarUsuariosSteps(ScenarioContext context)
         {
-            _dataStart = StartInjection.GetServiceCollection().GetService<IDataStart>();
-            _userHandler = StartInjection.GetServiceCollection().GetService<IUserHandler>();
+            var _serviceProvider = new StartInjection().ServiceProvider;
+            _dataStart = _serviceProvider.GetService<IDataStart>();
+            _userHandler = _serviceProvider.GetService<IUserHandler>();
             _context = context;
         }
 
