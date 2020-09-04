@@ -19,12 +19,12 @@ namespace devboost.Test.Domain.Handles.Queries
         }
 
         [Fact]
-        public async Task GetUser()
+        public void GetUser()
         {
-            User user = await _userHandler.GetUser(new QueryUserFilter
+            User user = _userHandler.GetUser(new QueryUserFilter
             {
                 UserName = "Allan"
-            });
+            }).Result;
             Assert.NotNull(user);
         }
     }

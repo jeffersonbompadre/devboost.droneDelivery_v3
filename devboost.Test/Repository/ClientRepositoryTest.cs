@@ -2,7 +2,6 @@
 using devboost.Domain.Repository;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Repository
@@ -19,33 +18,33 @@ namespace devboost.Test.Repository
 
         [Theory]
         [InlineData("Novo Cliente", "novo.cliente@domain.com", "(11)999-9999", -23.6578, -43.56079, "jefferson", "12345", "ADMIN")]
-        public async Task TestaAdicaoDeCliente(string nome, string eMail, string telefone, double latitude, double longitude, string usuario, string senha, string perfil)
+        public void TestaAdicaoDeCliente(string nome, string eMail, string telefone, double latitude, double longitude, string usuario, string senha, string perfil)
         {
             var cliente = new Cliente(nome, eMail, telefone, latitude, longitude)
             {
                 User = new User(usuario, senha, perfil)
             };
-            await _clienteRepository.AddCliente(cliente);
+            _clienteRepository.AddCliente(cliente).Wait();
         }
 
         [Fact]
-        public async Task TestaRetornoDeTodosCliente()
+        public void TestaRetornoDeTodosCliente()
         {
-            var cliResult = await _clienteRepository.GetAll();
+            var cliResult = _clienteRepository.GetAll().Result;
             Assert.NotNull(cliResult);
         }
 
         [Fact]
-        public async Task TestaConsultaClientePorNome()
+        public void TestaConsultaClientePorNome()
         {
-            var cliResult = await _clienteRepository.Get("Pantera Negra");
+            var cliResult = _clienteRepository.Get("Pantera Negra").Result;
             Assert.NotNull(cliResult);
         }
 
         [Fact]
-        public async Task TestaConsultaClientePorNomeUsuario()
+        public void TestaConsultaClientePorNomeUsuario()
         {
-            var cliResult = await _clienteRepository.GetByUserName("jefferson");
+            var cliResult = _clienteRepository.GetByUserName("jefferson").Result;
             Assert.NotNull(cliResult);
         }
     }

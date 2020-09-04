@@ -3,7 +3,6 @@ using devboost.Domain.Model;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Domain.Handles.Queries
@@ -19,9 +18,9 @@ namespace devboost.Test.Domain.Handles.Queries
         }
 
         [Fact]
-        public async Task BuscarDrone()
+        public void BuscarDrone()
         {
-            List<Drone> lista = await _droneHandler.BuscarDrone();
+            List<Drone> lista = _droneHandler.BuscarDrone().Result;
             Assert.True(lista.Count > 0);
         }
     }

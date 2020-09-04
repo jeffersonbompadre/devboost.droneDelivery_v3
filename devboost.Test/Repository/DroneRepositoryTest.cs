@@ -2,7 +2,6 @@
 using devboost.Domain.Repository;
 using devboost.Test.Config;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace devboost.Test.Repository
@@ -19,7 +18,7 @@ namespace devboost.Test.Repository
 
         [Theory]
         [InlineData(20, 12, 35, 15, 100, StatusDrone.disponivel)]
-        public async Task TestaAdicaoDeDrone(int id, int capacidade, int velocidade, int autonomia, int carga, StatusDrone status)
+        public void TestaAdicaoDeDrone(int id, int capacidade, int velocidade, int autonomia, int carga, StatusDrone status)
         {
             var drone = new Drone()
             {
@@ -30,35 +29,34 @@ namespace devboost.Test.Repository
                 Carga = carga,
                 StatusDrone = status
             };
-
-            await _droneRepository.AddDrone(drone);
+            _droneRepository.AddDrone(drone).Wait();
         }
 
         [Fact]
-        public async Task TestaRetornoDeTodosDrone()
+        public void TestaRetornoDeTodosDrone()
         {
-            var droneResult = await _droneRepository.GetAll();
+            var droneResult = _droneRepository.GetAll().Result;
             Assert.NotNull(droneResult);
         }
 
         [Fact]
-        public async Task TestaConsultaDroneDisponivel()
+        public void TestaConsultaDroneDisponivel()
         {
-            var droneResult = await _droneRepository.GetDronesDisponiveis();
+            var droneResult = _droneRepository.GetDronesDisponiveis().Result;
             Assert.NotNull(droneResult);
         }
 
         [Theory]
         [InlineData(1, 11, 30, 14, 99, StatusDrone.emTrajeto)]
-        public async Task TestaAtualizaDrone(int id, int capacidade, int velocidade, int autonomia, int carga, StatusDrone status)
+        public void TestaAtualizaDrone(int id, int capacidade, int velocidade, int autonomia, int carga, StatusDrone status)
         {
-            var drone = await _droneRepository.GetById(id);
+            var drone = _droneRepository.GetById(id).Result;
             drone.Capacidade = capacidade;
             drone.Velocidade = velocidade;
             drone.Autonomia = autonomia;
             drone.Carga = carga;
             drone.StatusDrone = status;
-            await _droneRepository.UpdateDrone(drone);
+            _droneRepository.UpdateDrone(drone).Wait();
         }
     }
 }

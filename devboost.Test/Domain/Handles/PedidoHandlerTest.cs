@@ -18,16 +18,16 @@ namespace devboost.Test.Domain.Handles
 
         [Theory]
         [InlineData(5, "Eric")]
-        public async void TestaRealizarPedido(int peso, string usuario)
+        public void TestaRealizarPedido(int peso, string usuario)
         {
-            var pedido = await _pedidoHandler.RealizarPedido(new RealizarPedidoRequest { Peso = peso }, usuario);
+            var pedido = _pedidoHandler.RealizarPedido(new RealizarPedidoRequest { Peso = peso }, usuario).Result;
             Assert.NotNull(pedido);
         }
 
         [Fact]
-        public async void TestaDistribuirPedido()
+        public void TestaDistribuirPedido()
         {
-            await _pedidoHandler.DistribuirPedido();
+            _pedidoHandler.DistribuirPedido().Wait();
         }
     }
 }
